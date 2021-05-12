@@ -1,28 +1,33 @@
-import express from "express";
-import {createServer} from"http";
-import {Server,Socket} from "socket.io";
-import path from "path";
+import express from 'express';
+import { createServer } from 'http';
+import { Server, Socket } from 'socket.io';
 
-import "./database";
-import { routes } from "./routes";
+import path from 'path';
 
+import { routes } from './routes';
+
+import './database';
 
 const app = express();
 
-app.use(express.static(path.join(__dirname, "..", "public")));
-app.set("views", path.join(__dirname, "..", "public"));
-app.engine("html", require("ejs").renderFile);
-app.set("view engine", "html");
+app.use(express.static(path.join(__dirname, '..', 'public')));
+app.set('views', path.join(__dirname, '..', 'public'));
+app.engine('html', require('ejs').renderFile);
+app.set('view engine', 'ejs');
 
-app.get("/pages/client", (request, response) => {
- return response.render("html/client.html");
+app.get('/pages/client', (request, response) => {
+    return response.render('html/client.html');
 });
 
-const  http  = createServer(app); // Criando protocolo http
-const io = new Server(http); // Criando protocolo WS
+app.get('/pages/admin', (request, response) => {
+    return response.render('html/admin.html');
+});
 
-io.on("connection", (socket: Socket) =>{
- console.log("Você está conectado", socket.id);
+const http = createServer(app);
+const io = new Server(http);
+
+io.on('connection', (socket: Socket) => {
+    console.log('Enviou mensagem', socket.id);
 });
 
 app.use(express.json());

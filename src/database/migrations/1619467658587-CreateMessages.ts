@@ -1,15 +1,10 @@
-import {
-    MigrationInterface,
-    QueryRunner,
-    Table,
-    TableForeignKey,
-} from 'typeorm';
+import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
-export class CreateConnections1619101339539 implements MigrationInterface {
+export class CreateMessages1619014767162 implements MigrationInterface {
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.createTable(
             new Table({
-                name: 'connections',
+                name: 'messages',
                 columns: [
                     {
                         name: 'id',
@@ -26,7 +21,7 @@ export class CreateConnections1619101339539 implements MigrationInterface {
                         type: 'uuid',
                     },
                     {
-                        name: 'socket_id',
+                        name: 'text',
                         type: 'varchar',
                     },
                     {
@@ -34,31 +29,23 @@ export class CreateConnections1619101339539 implements MigrationInterface {
                         type: 'timestamp',
                         default: 'now()',
                     },
+                ],
+                foreignKeys: [
                     {
-                        name: 'updated_at',
-                        type: 'timestamp',
-                        default: 'now()',
+                        name: 'FKUser',
+                        referencedTableName: 'users',
+                        referencedColumnNames: ['id'],
+                        columnNames: ['user_id'],
+                        onDelete: 'SET NULL',
+                        onUpdate: 'SET NULL',
                     },
                 ],
-            })
-        );
-
-        await queryRunner.createForeignKey(
-            'connections',
-            new TableForeignKey({
-                name: 'FKConnectionUser',
-                referencedTableName: 'users',
-                referencedColumnNames: ['id'],
-                columnNames: ['user_id'],
-                onDelete: 'SET NULL',
-                onUpdate: 'SET NULL',
             })
         );
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.dropForeignKey('connections', 'FKConnectionUser');
-        await queryRunner.dropTable('connections');
+        await queryRunner.dropTable('messages');
     }
 }
 

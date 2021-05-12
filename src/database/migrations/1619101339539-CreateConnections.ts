@@ -61,4 +61,3 @@ export class CreateConnections1619101339539 implements MigrationInterface {
         await queryRunner.dropTable('connections');
     }
 }
-
