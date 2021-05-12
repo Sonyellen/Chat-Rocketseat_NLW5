@@ -5,14 +5,13 @@
 ## Descrição do Projeto: :computer:
 <p align="justify"> Um chat para atendimento de clientes em tempo real. </p>
 
-<br>
-
 <h4 align="center"> 
 	> Status do Projeto: Concluido :heavy_check_mark:
 </h4>
 
+<h1 align="center">
 <br>
-  <img src="./pagina.png" alt="pagina" width="100%">
+  <img src="./pagina.png" alt="pagina" width="80%">
 <br>
 
 ### Usando um task list, marcando tarefa como completada ou não  
